@@ -1,0 +1,40 @@
+
+[Define some actions that would reasonably apply to every object in the game.]
+
+The take action is a standard hyperlink action with printed name "take [if the active item is not proper-named]the [end if][printed name of the active item]" and command text "get [printed name of the active item]".
+Action fruitful rule for the take action:
+	If the active item is fixed in place:
+		Rule fails;
+	If the player encloses the active item:
+		Rule fails;
+	If the active item is a person:
+		Rule fails.
+		
+The drop action is a standard hyperlink action with printed name "drop [if the active item is not proper-named]the [end if][printed name of the active item]" and command text "drop [printed name of the active item]".
+Action fruitful rule for the drop action:
+	If the player does not enclose the active item:
+		Rule fails.
+		
+The enter-enterable-container-action is a projected standard hyperlink action with printed name "enter the [printed name of the active item]" and command text "enter [printed name of the active item]".
+Action fruitful rule for enter-enterable-container-action:
+	If the active item is not enterable:
+		Rule fails;
+	If the active item encloses the player:
+		Rule fails.
+		
+The exit-container-action is a standard hyperlink action with printed name "exit" and command text "exit".
+Action fruitful rule for exit-container-action:
+	If the active item does not enclose the player:
+		Rule fails.
+
+The open-openable-thing-action is a standard hyperlink action with printed name "open it" and command text "open [printed name of the active item]".
+Action fruitful rule for open-openable-thing-action:
+	If the active item is not openable:
+		Rule fails;
+	If the active item is open:
+		Rule fails.
+		
+The close-openable-thing-action is a standard hyperlink action with printed name "close it" and command text "close [printed name of the active item]".
+Action fruitful rule for close-openable-thing-action:
+	If the active item is not openable or the active item is closed:
+		Rule fails.

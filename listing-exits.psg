@@ -1,0 +1,89 @@
+
+Section - Listing Exits
+
+[Making a room 'exits-invisible' will hide the list of exits.]
+A room can be exits-visible or exits-invisible. A room is usually exits-visible.
+
+To say closed door: say "(closed)".
+
+To say no obvious exits: say "You can see no obvious exits."
+
+A door has a text called passing text. Passing text of a door is usually "through".
+A door has a text called closed text.  Closed text of a door is usually "[closed door]".
+A door can be obvious.  Doors are usually obvious.
+
+The exit obviousness rules are an object-based rulebook.  
+The door obviousness rules are an object-based rulebook.
+
+Last door obviousness rule for a door (called gateway) (this is the check obvious doors rule):
+	if gateway is not obvious, rule fails.
+
+An exit obviousness rule for a room (called place) (this is the darkness hides exits rule):
+	if not in darkness, make no decision;
+	if place is not visited, rule fails.
+
+To decide if (way - a direction) is a listable exit:
+	let place be the room way from the location;
+	if place is not a room then decide no;
+	consider the exit obviousness rules for place;
+	if the rule failed, decide no;
+	let gateway be the room-or-door way from the location;
+	if gateway is a door
+	begin;
+		consider the door obviousness rules for gateway;
+		if the rule failed, decide no;
+	end if;
+	decide yes.
+
+Definition: A direction is exit-listable if it is a listable exit.
+
+Listing exits is an activity.
+
+The last for listing exits rule (this is the standard exit listing rule):
+	let exits be the number of exit-listable directions;
+	if exits is 0:
+		say "[no obvious exits]";
+		Stop the action;
+	Let L be the list of exit-listable directions;
+	If exits is 1:
+		Let E be entry 1 of L;
+		Say "You can only go [link][E][as][printed name of E][end link]";
+		Let place be the room E from the location;
+		Let gateway be the room-or-door E from location;
+		If gateway is a door:
+			Say " ([passing text of gateway] [link][the printed name of the gateway][as]x [the printed name of the gateway][end link]";
+			If gateway is closed:
+				Say " [closed text of gateway]";
+			Say ")";
+		If place is visited:
+			Say " (to [place])";
+		Say " from here.";
+	Otherwise:
+		Say "You can go[line break]";
+		Repeat with E running through L:
+			Say "  [link][E][as][printed name of E][end link]";
+			Let place be the room E from the location;
+			Let gateway be the room-or-door E from location;
+			If gateway is a door: [Add a link to 'x door' to allow the player to examine the doorway.]
+				Say " ([passing text of gateway] [link][the printed name of the gateway][as]x [the printed name of the gateway][end link]"; 
+				If gateway is closed:
+					Say " [closed text of gateway]";
+				Say ")";
+			If place is visited:
+				Say " (to [place])";
+			Say "[line break]".
+
+This is the exits rule: if the location of the player is exits-visible, carry out the listing exits activity.
+The exits rule is listed last in the carry out looking rules.
+
+Listing exits is an action applying to nothing.
+Understand the command "exits" as something new.
+Understand "exits" as listing exits.
+Carry out listing exits: carry out the listing exits activity.
+
+[Keep doors from appearing in the room contents since they now appear in the exits list]
+Before listing nondescript items of a room (called the room):
+	repeat with door running through every door in the room:
+		now the door is not marked for listing.
+
+

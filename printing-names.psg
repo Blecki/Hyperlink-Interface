@@ -1,0 +1,11 @@
+
+Section - Printing names of things
+
+[Anytime the name of an object is printed, turn it into a link.]
+	
+To say x (bob - a thing):
+	Say "[link][the printed name of bob][as]x [the printed name of bob][end link]".
+		
+Rule for printing the name of a thing (called Bob):
+	Say "[link][the printed name of Bob][as]x [the printed name of Bob][end link]".
+	

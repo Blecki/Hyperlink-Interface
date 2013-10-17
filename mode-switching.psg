@@ -1,0 +1,89 @@
+
+Section - Mode Switching
+
+Hyperlink-mode is a number that varies. Hyperlink-mode is 2.
+
+Mode switching is an action out of world applying to one topic. Understand "mode [text]" as mode switching.
+Implicit mode is an action out of world applying to nothing. Understand "mode" as implicit mode.
+
+After reading a command:
+	if the player's command includes "mode" or the player's command includes "hyperlinks":
+		If the player's command includes "none" or the player's command includes "off":
+			Now hyperlink-mode is 0;
+			Now the command prompt is ">";
+		Otherwise if the player's command includes "hilite":
+			Now hyperlink-mode is 1;
+			Now the command prompt is ">";
+		Otherwise if the player's command includes "link" or the player's command includes "on" or the player's command includes "links":
+			Now hyperlink-mode is 2;
+			Now the command prompt is "[link]look[end link] - [link]commands[end link]>";
+		Otherwise if the player's command includes "blind" or the player's command includes "accessible" or the player's command includes "impaired":
+			Now hyperlink-mode is 3;
+			Now the command prompt is ">";
+		Otherwise:
+			Say "(Use the mode command to switch between different modes of presenting this story. The available modes are[line break]none - There will be no hiliting and no text[line break]hilite - Keywords, object names, and other important text is hilited[line break]links - Keywords, object names, and important text becomes links that enter commands[line break]accessible - Like hilite, except hiliting is done *like this* rather than using text color[line break]Type 'mode mode-of-choice' to change the mode.)";
+		If hyperlink-mode is 0:
+			Say "(All hiliting and linking is disabled. You can re-enable it with the 'mode' command. Try 'mode help' for a description of available modes.)";
+		If hyperlink-mode is 1:
+			Say "(Normal hiliting is enabled. You can change the mode with the 'mode' command. Try 'mode help' for a description of available modes.)";
+		if hyperlink-mode is 2:
+			Say "(Linking and hiliting is enabled. You can disable it with the 'mode' command. Try 'mode help' for a description of available modes. Every action necessary to complete the game is possible in this mode, but some fun but unecessary actions are not accessible.)";
+		if hyperlink-mode is 3:
+			Say "(Accessible mode enabled. You can change the mode with the 'mode' command. Try 'mode help' for a description of available modes.)".
+
+To decide whether hyperlinks are currently enabled:
+	if hyperlink-mode is 2, decide yes;
+	decide no.
+	
+To decide whether hyperlinks are currently disabled:
+	If hyperlink-mode is 2, decide no;
+	decide yes.
+
+To say end link: [These links only appear hilited in mode 2.]
+	let hyperlink index be a number;
+	stop capturing text;
+	if the hyperlinked text is "":
+		now the hyperlinked text is "[captured text]";
+	now the hyperlinked command is "[captured text]";
+	If hyperlink-mode is 0:
+		Say "[hyperlinked text]";
+	If hyperlink-mode is 1:
+		Say "[hyperlinked text]";
+	If hyperlink-mode is 2:
+		if the hyperlinked command is listed in the hyperlink list:
+			repeat with count running from 1 to the number of entries in the hyperlink list:
+				if entry (count) of the hyperlink list is hyperlinked command:
+					let hyperlink index be count;
+		otherwise unless the hyperlinked command is "":
+			add hyperlinked command to hyperlink list;
+			let hyperlink index be the number of entries of hyperlink list;
+		say "[set link (hyperlink index)][hyperlinked text][terminate link]";
+	If hyperlink-mode is 3:
+		Say "[hyperlinked text]".
+		
+To say end link hilite: [Links ended this way will hilite in modes 1 and 3.]
+	let hyperlink index be a number;
+	stop capturing text;
+	if the hyperlinked text is "":
+		now the hyperlinked text is "[captured text]";
+	now the hyperlinked command is "[captured text]";
+	If hyperlink-mode is 0:
+		Say "[hyperlinked text]";
+	If hyperlink-mode is 1:
+		Say "[interest][hyperlinked text][normal]";
+	If hyperlink-mode is 2:
+		if the hyperlinked command is listed in the hyperlink list:
+			repeat with count running from 1 to the number of entries in the hyperlink list:
+				if entry (count) of the hyperlink list is hyperlinked command:
+					let hyperlink index be count;
+		otherwise unless the hyperlinked command is "":
+			add hyperlinked command to hyperlink list;
+			let hyperlink index be the number of entries of hyperlink list;
+		say "[set link (hyperlink index)][hyperlinked text][terminate link]";
+	If hyperlink-mode is 3:
+		Say "*[hyperlinked text]*".
+		
+When play begins:
+	Now the command prompt is "[link]look[end link] - [link]commands[end link]>";
+	Say "[bracket]This game can be played in several different modes. Currently, it is in hyperlink mode. Hyperlinks can be turned off. This game can also be played in hilite mode, where important keywords are hilited, and accessible mode, which uses a form of hiliting friendly to the visually impaired. Use the 'mode' command to change the mode. Try 'mode help' to get a description of available modes.[close bracket]".
+	

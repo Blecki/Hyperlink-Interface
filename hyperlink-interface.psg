@@ -1,0 +1,111 @@
+Version 1 of Hyperlink Interface by Anthony Casteel begins here.
+
+"A hyperlink interface exposing navigation and common commands"
+
+include Basic Screen Effects by Emily Short.
+include Glulx Text Effects by Emily Short.
+Include Inline Hyperlinks by Erik Temple.
+
+Chapter - Hyperlink Interface
+
+<<(import "mode-switching.psg")>>
+<<(import "colors.psg")>>
+<<(import "printing-names.psg")>>
+
+Section - Hyperlink Actions
+
+A hyperlink action is a kind of thing.
+A hyperlink action has some text called the command text.
+
+[Projected hyperlink actions appear in the 'global' command list as well as the object list.]
+A hyperlink action can be projected. A hyperlink action is usually not projected.
+
+An object has a list of hyperlink actions called the special actions.
+A object can be action-list-suppressed. An object is usually not action-list-suppressed.
+
+A standard hyperlink action is a kind of hyperlink action.
+A global hyperlink action is a kind of hyperlink action.
+
+The active item is an object that varies.
+The action fruitful rules is an object-based rulebook with default success.
+Action fruitful rule for something (this is the actions are fruitful by default rule):
+	Rule succeeds.
+
+Section - Standard actions
+
+<<(import "standard-object-actions.psg")>>
+<<(import "global-actions.psg")>>
+	
+Section - Listing object actions
+		
+After examining something (called the item) when hyperlinks are currently enabled (this is the list available object actions rule):
+	If the item is action-list-suppressed:
+		Continue the action;
+	Now the active item is the item;
+	Let L be a list of hyperlink actions;
+	Repeat with B running through every standard hyperlink action:
+		Consider the action fruitful rules for B;
+		If the rule succeeded:
+			Add B to L, if absent;
+	Repeat with B running through the special actions of the item:
+		Consider the action fruitful rules for B;
+		If the rule succeeded:
+			Add B to L, if absent;
+	If the number of entries in L is not 0:
+		If the number of entries in L is 1:
+			Say "You could [link][printed name of entry 1 in L][as][command text of entry 1 in L][end link].";
+		Otherwise:
+			Say "You could..";
+			Repeat with A running through L:
+				Say "  [link][printed name of A][as][command text of A][end link].";
+	Continue the action.
+	
+Section - Listing global actions
+
+Listing basic commands is an action out of world applying to nothing.
+Understand "commands" as listing basic commands.
+
+Carry out listing basic commands:
+	Let L be a list of hyperlink actions;
+	Now the active item is nothing;
+	Repeat with B running through every global hyperlink action:
+		Consider the action fruitful rules for B;
+		If the rule succeeded:
+			Add B to L, if absent;
+	Repeat with B running through the special actions of the location of the player:
+		Consider the action fruitful rules for B;
+		If the rule succeeded:
+			Add B to L, if absent;
+	If something encloses the player: [Include the special actions of anything the player happens to be inside]
+		Let X be a random thing that encloses the player;
+		Now the active item is X;
+		Repeat with C running through the special actions of X:
+			Consider the action fruitful rules for C;
+			If the rule succeeded:
+				Add C to L, if absent;
+	Repeat with item running through every visible thing:
+		Now the active item is item;
+		Repeat with C running through the special actions of item:
+			If C is projected:
+				Consider the action fruitful rules for C;
+				If the rule succeeded:
+					Add C to L, if absent;
+	If the number of entries in L is not 0:
+		If the number of entries in L is 1:
+			Say "You could [link][printed name of entry 1 in L][as][command text of entry 1 in L][end link].";
+		Otherwise:
+			Say "You could..";
+			Repeat with A running through L:
+				Say "  [link][printed name of A][as][command text of A][end link].".
+	
+
+<<(import "listing-exits.psg")>>
+
+<<(import "for-use-with-conversation-package.psg")>>
+
+<<(import "for-use-with-threaded-conversation.psg")>>
+
+Hyperlink Interface ends here.
+
+---- Documentation ----
+

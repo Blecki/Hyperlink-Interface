@@ -1,0 +1,36 @@
+
+Section - Printing the name of topics (For use with Conversation Package by Eric Eve)
+
+Include Complex Listing by Emily Short.
+[Todo: Entirely replace Conversation Package's topic listing activity to remove dependancy on Complex Listing, and to properly support distinction between ask/tell.]
+
+[There are two things we need to tweak for conversations:
+	First, when listing topics, topic names should be a link to ask - not examine!
+	Second, people get additional actions to greet them and list topics.
+]
+
+[Rule for printing the name of a thing (called Bob) when printing suggestion is true:
+	Say "[the printed name of Bob]".]
+	
+Rule for printing the name of a thing (called the current topic) while listing suggested topics (this is the print ask link rule):
+	If the current topic is the current interlocutor:
+		If the current interlocutor is not proper-named:
+			Say "the "; [Hack because the interlocutor appears before the list]
+	Say "[link][the printed name of the current topic][as]ask [the printed name of the current interlocutor] about [the printed name of the current topic][end link]".
+
+Section - Standard conversation actions (For use with Conversation Package by Eric Eve)
+
+The greet action is a standard hyperlink action with printed name "say hello" and command text "talk to [printed name of the active item]".
+Action fruitful rule for the greet action:
+	If the active item is not a person:
+		Rule fails;
+	If the active item is the current interlocutor:
+		Rule fails.
+		
+The suggest topics action is a standard hyperlink action with printed name "suggest conversation topics" and command text "topics".
+Action fruitful rule for the suggest topics action:
+	If the active item is not a person:
+		Rule fails;
+	If the active item is not the current interlocutor:
+		Rule fails.
+		

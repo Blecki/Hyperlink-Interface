@@ -1,0 +1,9 @@
+
+[Define some global actions that are always available.]
+
+The look action is a global hyperlink action with printed name "look around" and command text "look".
+
+The wait action is a global hyperlink action with printed name "do nothing at all" and command text "wait".
+	
+The list inventory action is a global hyperlink action with printed name "see what you are carrying" and command text "inventory".
+

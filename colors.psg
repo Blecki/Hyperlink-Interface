@@ -1,0 +1,24 @@
+
+Section - Glulx formatting for hilite mode
+
+[These are the colors used when the interface is in hilite mode]
+
+Table of User Styles (continued) 
+style name	boldness	glulx color
+special-style-1	bold-weight	g-faded-blue
+special-style-2	bold-weight	g-faded-red
+
+Table of Common Color Values (continued)
+glulx color value	assigned number
+g-faded-blue	2846917
+g-faded-red	9257538
+
+To say interest:
+	say first custom style.
+To say command:
+	say second custom style.
+To say normal:
+	say roman type.
+To say italic:
+	say italic type.
+
