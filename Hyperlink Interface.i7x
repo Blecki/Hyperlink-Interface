@@ -366,6 +366,9 @@ Before listing nondescript items of a room (called the room):
 
 Section - Printing the name of topics (For use with Conversation Package by Eric Eve)
 
+Include Complex Listing by Emily Short.
+[Todo: Entirely replace Conversation Package's topic listing activity to remove dependancy on Complex Listing, and to properly support distinction between ask/tell.]
+
 [There are two things we need to tweak for conversations:
 	First, when listing topics, topic names should be a link to ask - not examine!
 	Second, people get additional actions to greet them and list topics.
@@ -396,6 +399,10 @@ Action fruitful rule for the suggest topics action:
 	If the active item is not the current interlocutor:
 		Rule fails.
 		
+
+
+
+[TODO: Incorporate threaded conversation]
 
 
 Hyperlink Interface ends here.
